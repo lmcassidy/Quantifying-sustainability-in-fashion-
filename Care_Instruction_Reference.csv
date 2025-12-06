@@ -5,5 +5,5 @@ Machine wash cold,0.3,15,0.02,"Lowest energy use; often recommended for delicate
 Hand wash,0.2,8,0.015,"Lower mechanical energy but higher labor; used for wool/cashmere"
 Machine wash 30°C + tumble dry,2.5,15,0.20,"Tumble drying significantly increases total energy and GHG emissions"
 Machine wash 30°C + line dry,0.5,15,0.04,"Line drying avoids high energy use; lowest-impact common instruction"
-Dry clean,3.5,0.5,0.25,"High chemical and energy impact; typically for luxury fibres like cashmere"
-Do not wash (spot clean),0.1,1,0.01,"Minimal consumer environmental impact; used for delicate outerwear"
+Dry clean,3.5,0.5,0.25,"High chemical and energy impact; typically for luxury fibres"
+
