@@ -97,8 +97,8 @@ class PricePredictor:
         """
         df_ml = df_scored.copy()
 
-        # Convert price to numeric
-        if df_ml["Price"].dtype == object:
+        # Convert price to numeric (handle both object and StringDtype in pandas 3.0+)
+        if not pd.api.types.is_numeric_dtype(df_ml["Price"]):
             df_ml["Price"] = (
                 df_ml["Price"].astype(str)
                 .str.replace("€", "", regex=False)
