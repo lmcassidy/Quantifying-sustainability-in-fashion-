@@ -31,8 +31,8 @@ export function ScoreForm({ onSubmit, isLoading }: ScoreFormProps) {
   ]);
   const [origin, setOrigin] = useState('');
   const [careInstruction, setCareInstruction] = useState('');
-  const [cert1, setCert1] = useState('None');
-  const [cert2, setCert2] = useState('None');
+  const [cert1, setCert1] = useState('No Certification');
+  const [cert2, setCert2] = useState('No Certification');
 
   useEffect(() => {
     async function loadReferenceData() {
