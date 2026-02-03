@@ -27,8 +27,8 @@ class ProductInput(BaseModel):
     materials: list[MaterialInput] = Field(..., min_length=1, description="List of materials with percentages")
     origin: str = Field(..., description="Manufacturing origin country")
     care_instruction: str = Field(..., description="Care instruction")
-    certification1: Optional[str] = Field(default="None", description="First certification")
-    certification2: Optional[str] = Field(default="None", description="Second certification")
+    certification1: Optional[str] = Field(default="No Certification", description="First certification")
+    certification2: Optional[str] = Field(default="No Certification", description="Second certification")
     price: Optional[str] = Field(default=None, description="Product price (e.g., '50.00')")
 
     @field_validator("materials")
