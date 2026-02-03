@@ -1,0 +1,10 @@
+Origin,Energy_Grid_Intensity,Transport_Impact_Score,Manufacturing_Impact_Score,Notes
+China,0.65,0.40,0.60,"Coal-heavy grid; large-scale manufacturing; long transport distance"
+Bangladesh,0.55,0.45,0.70,"Developing grid; high garment production volume; long-distance transport"
+India,0.50,0.40,0.65,"Coal + renewables; textile-intensive industry; moderate-to-high impact"
+Vietnam,0.45,0.35,0.55,"Balanced grid; strong apparel export sector; long transport"
+Turkey,0.40,0.20,0.45,"Closer to EU market; medium-impact grid; strong cotton industry"
+Portugal,0.25,0.10,0.30,"Low-carbon EU grid; short transport; higher manufacturing efficiency"
+Italy,0.30,0.10,0.35,"High-quality manufacturing; short transport distance; EU energy mix"
+Cambodia,0.55,0.45,0.75,"Developing grid; high reliance on imported electricity; long transport"
+Thailand,0.45,0.35,0.55,"Mid-impact energy grid; established apparel industry; long transport"

@@ -1,0 +1,9 @@
+Care_Instruction,Energy_Use_MJ,Water_Use_L,CO2_kg,Notes
+Machine wash 30°C,0.5,15,0.04,"Low temperature reduces energy demand by ~40%; common for synthetics and cotton"
+Machine wash 40°C,0.8,15,0.07,"Medium energy demand; standard wash cycle; moderate impact"
+Machine wash cold,0.3,15,0.02,"Lowest energy use; often recommended for delicates or synthetics"
+Hand wash,0.2,8,0.015,"Lower mechanical energy but higher labor; used for wool/cashmere"
+Machine wash 30°C + tumble dry,2.5,15,0.20,"Tumble drying significantly increases total energy and GHG emissions"
+Machine wash 30°C + line dry,0.5,15,0.04,"Line drying avoids high energy use; lowest-impact common instruction"
+Dry clean,3.5,0.5,0.25,"High chemical and energy impact; typically for luxury fibres"
+

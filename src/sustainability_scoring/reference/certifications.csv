@@ -1,0 +1,11 @@
+Certification,Category,Score_Bonus,Description
+GOTS,Environmental+Social,0.25,"Organic fibre, chemical safety, full supply chain audit"
+GRS,Recycled+Traceability,0.20,"Verifies recycled content, chemical restrictions, chain of custody"
+RWS,Animal Welfare,0.15,"Responsible Wool Standard, land and animal management"
+RDS,Animal Welfare,0.15,"Responsible Down Standard"
+Fair Trade,Social,0.20,"Improved labour conditions and community development"
+Oeko-Tex 100,Chemical Safety,0.10,"Harmful substance testing only"
+Bluesign,Chemical Safety+Process,0.20,"Controlled chemical inputs, cleaner production"
+BCI Cotton,Environmental,0.05,"Basic improvement programme, low traceability"
+None,None,0.00,"No sustainability certification"
+RCS,Recycled,0.10,Recycled Claim Standard (verifies recycled content only; no chemical/process controls)
