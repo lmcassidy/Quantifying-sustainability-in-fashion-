@@ -1,7 +1,5 @@
 """Price prediction models using sustainability features."""
 
-from typing import Optional
-
 import numpy as np
 import pandas as pd
 from sklearn.ensemble import RandomForestRegressor, GradientBoostingRegressor
