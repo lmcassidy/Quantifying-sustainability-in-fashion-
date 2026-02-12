@@ -10,7 +10,7 @@ import type {
   PricePredictionResponse,
 } from '../types';
 
-const API_BASE = 'http://localhost:8000/api';
+const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:8000/api';
 
 async function fetchJson<T>(url: string, options?: RequestInit): Promise<T> {
   const response = await fetch(url, {
@@ -92,5 +92,6 @@ export async function predictPrice(
 
 // Health Check
 export async function checkHealth(): Promise<{ status: string }> {
-  return fetchJson<{ status: string }>('http://localhost:8000/health');
+  const baseUrl = import.meta.env.VITE_API_URL?.replace('/api', '') || 'http://localhost:8000';
+  return fetchJson<{ status: string }>(`${baseUrl}/health`);
 }

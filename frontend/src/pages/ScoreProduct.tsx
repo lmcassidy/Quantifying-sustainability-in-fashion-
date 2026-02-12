@@ -39,8 +39,11 @@ export function ScoreProduct() {
       {/* Header */}
       <div className="border-b border-gray-100">
         <div className="max-w-4xl mx-auto px-4 py-4 flex items-center justify-between">
-          <Link to="/" className="text-gray-600 hover:text-gray-900 font-medium">
-            ← Back
+          <Link to="/" className="text-gray-600 hover:text-gray-900 font-medium flex items-center gap-2">
+            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+            </svg>
+            Back
           </Link>
           <h1 className="text-lg font-semibold text-gray-900">Score a Product</h1>
           <div className="w-16"></div>
@@ -96,7 +99,7 @@ export function ScoreProduct() {
                       <span className="text-gray-500">Certifications:</span>
                       <p className="font-medium text-gray-900">
                         {[lastInput.certification1, lastInput.certification2]
-                          .filter(c => c && c !== 'None')
+                          .filter(c => c && c !== 'No Certification')
                           .join(', ') || 'None'}
                       </p>
                     </div>
@@ -118,19 +121,13 @@ export function ScoreProduct() {
             </div>
 
             {/* Actions */}
-            <div className="flex gap-4 justify-center">
+            <div className="flex justify-center">
               <button
                 onClick={handleReset}
                 className="px-6 py-3 bg-gray-900 text-white font-medium rounded-lg hover:bg-gray-800 transition-colors"
               >
                 Score Another Product
               </button>
-              <Link
-                to="/"
-                className="px-6 py-3 border border-gray-300 text-gray-700 font-medium rounded-lg hover:bg-gray-50 transition-colors"
-              >
-                Back to Home
-              </Link>
             </div>
           </div>
         )}

@@ -37,7 +37,22 @@ export function Home() {
   if (result) {
     return (
       <div className="min-h-screen bg-white">
-        <div className="max-w-2xl mx-auto px-4 py-16">
+        {/* Header with back arrow */}
+        <div className="border-b border-gray-100">
+          <div className="max-w-2xl mx-auto px-4 py-4">
+            <button
+              onClick={handleReset}
+              className="text-gray-600 hover:text-gray-900 font-medium flex items-center gap-2"
+            >
+              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+              </svg>
+              Back
+            </button>
+          </div>
+        </div>
+
+        <div className="max-w-2xl mx-auto px-4 py-12">
           <div className="text-center mb-8">
             <h2 className="text-2xl font-semibold text-gray-900 mb-2">
               {result.product_name}
@@ -57,18 +72,12 @@ export function Home() {
             />
           </div>
 
-          <div className="flex gap-4 justify-center">
+          <div className="flex justify-center">
             <button
               onClick={handlePreloaded}
               className="px-6 py-3 bg-gray-900 text-white font-medium rounded-lg hover:bg-gray-800 transition-colors"
             >
               Try Another Product
-            </button>
-            <button
-              onClick={handleReset}
-              className="px-6 py-3 border border-gray-300 text-gray-700 font-medium rounded-lg hover:bg-gray-50 transition-colors"
-            >
-              Back to Start
             </button>
           </div>
         </div>
