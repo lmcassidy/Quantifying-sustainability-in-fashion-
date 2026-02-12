@@ -5,12 +5,8 @@ services:
     runtime: python
     region: oregon
     plan: free
-    rootDir: backend
-    buildCommand: |
-      pip install -r requirements.txt
-      pip install -e ..
-      python train_model.py
-    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    buildCommand: cd backend && pip install -r requirements.txt && pip install -e .. && python train_model.py
+    startCommand: cd backend && uvicorn app.main:app --host 0.0.0.0 --port $PORT
     envVars:
       - key: PYTHON_VERSION
         value: "3.11.0"
