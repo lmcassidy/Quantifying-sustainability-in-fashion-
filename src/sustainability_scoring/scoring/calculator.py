@@ -3,23 +3,42 @@
 import pandas as pd
 
 
-def _minmax_normalize(series: pd.Series) -> pd.Series:
+# Reference bounds for normalization (based on reference data min/max values)
+# These ensure consistent scoring regardless of dataset size
+REFERENCE_BOUNDS = {
+    # Material impacts (weighted by percentage, so bounds assume 100% of material)
+    "Material_CO2": (1.8, 30.0),       # Hemp (1.8) to Cashmere (30.0) kgCO2e
+    "Material_Water": (20, 2700),       # Recycled Polyester (20) to Cotton (2700) L
+    "Material_Energy": (20, 200),       # Hemp/Recycled Cotton (20) to Cashmere (200) MJ
+    "Material_Chemical": (8, 60),       # Hemp (8) to Cashmere (60)
+    # Care impacts
+    "Care_CO2": (0.015, 0.25),          # Hand wash (0.015) to Dry clean (0.25) kg
+    "Care_Water": (0.5, 15),            # Dry clean (0.5) to Machine wash (15) L
+    "Care_Energy": (0.2, 3.5),          # Hand wash (0.2) to Dry clean (3.5) MJ
+}
+
+
+def _normalize_with_bounds(series: pd.Series, bounds: tuple[float, float]) -> pd.Series:
     """
-    Apply min-max normalization to a series.
+    Normalize a series using fixed reference bounds.
 
     Parameters
     ----------
     series : pd.Series
         Numeric series to normalize.
+    bounds : tuple[float, float]
+        (min_value, max_value) from reference data.
 
     Returns
     -------
     pd.Series
         Normalized series with values between 0 and 1.
     """
-    if series.max() == series.min():
+    min_val, max_val = bounds
+    if max_val == min_val:
         return series * 0
-    return (series - series.min()) / (series.max() - series.min())
+    normalized = (series - min_val) / (max_val - min_val)
+    return normalized.clip(0, 1)  # Ensure values stay in 0-1 range
 
 
 def calculate_sustainability_score(df_merged: pd.DataFrame) -> pd.DataFrame:
@@ -83,18 +102,32 @@ def calculate_sustainability_score(df_merged: pd.DataFrame) -> pd.DataFrame:
     # MERGE MATERIAL AGGREGATES INTO PRODUCT TABLE
     prod = prod.merge(material_agg, on="Id", how="left")
 
-    # NORMALIZATION (min-max, 0 = best, 1 = worst for impacts)
+    # NORMALIZATION (using reference bounds, 0 = best, 1 = worst for impacts)
 
-    # Material normalization
-    prod["Material_CO2_norm"] = _minmax_normalize(prod["Weighted_Material_CO2"])
-    prod["Material_Water_norm"] = _minmax_normalize(prod["Weighted_Material_Water"])
-    prod["Material_Energy_norm"] = _minmax_normalize(prod["Weighted_Material_Energy"])
-    prod["Material_Chemical_norm"] = _minmax_normalize(prod["Weighted_Material_Chemical"])
+    # Material normalization (using reference bounds)
+    prod["Material_CO2_norm"] = _normalize_with_bounds(
+        prod["Weighted_Material_CO2"], REFERENCE_BOUNDS["Material_CO2"]
+    )
+    prod["Material_Water_norm"] = _normalize_with_bounds(
+        prod["Weighted_Material_Water"], REFERENCE_BOUNDS["Material_Water"]
+    )
+    prod["Material_Energy_norm"] = _normalize_with_bounds(
+        prod["Weighted_Material_Energy"], REFERENCE_BOUNDS["Material_Energy"]
+    )
+    prod["Material_Chemical_norm"] = _normalize_with_bounds(
+        prod["Weighted_Material_Chemical"], REFERENCE_BOUNDS["Material_Chemical"]
+    )
 
-    # Care normalization
-    prod["Care_CO2_norm"] = _minmax_normalize(prod["Care_CO2"])
-    prod["Care_Water_norm"] = _minmax_normalize(prod["Care_Water"])
-    prod["Care_Energy_norm"] = _minmax_normalize(prod["Care_Energy"])
+    # Care normalization (using reference bounds)
+    prod["Care_CO2_norm"] = _normalize_with_bounds(
+        prod["Care_CO2"], REFERENCE_BOUNDS["Care_CO2"]
+    )
+    prod["Care_Water_norm"] = _normalize_with_bounds(
+        prod["Care_Water"], REFERENCE_BOUNDS["Care_Water"]
+    )
+    prod["Care_Energy_norm"] = _normalize_with_bounds(
+        prod["Care_Energy"], REFERENCE_BOUNDS["Care_Energy"]
+    )
 
     # Origin indices already 0-1 (impact indices)
     prod["Origin_Grid_norm"] = prod["Origin_Grid"]

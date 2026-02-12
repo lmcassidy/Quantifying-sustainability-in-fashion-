@@ -22,7 +22,6 @@ export function ScoreForm({ onSubmit, isLoading }: ScoreFormProps) {
   const [loadingRef, setLoadingRef] = useState(true);
   const [loadError, setLoadError] = useState<string | null>(null);
 
-  const [productName, setProductName] = useState('');
   const [brand, setBrand] = useState('');
   const [category, setCategory] = useState('Other');
   const [subcategory, setSubcategory] = useState('Other');
@@ -90,11 +89,6 @@ export function ScoreForm({ onSubmit, isLoading }: ScoreFormProps) {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!productName.trim()) {
-      alert('Please enter a product name');
-      return;
-    }
-
     if (productMaterials.some(m => !m.name)) {
       alert('Please select all materials');
       return;
@@ -105,8 +99,17 @@ export function ScoreForm({ onSubmit, isLoading }: ScoreFormProps) {
       return;
     }
 
+    // Generate a descriptive product name from materials
+    const materialNames = productMaterials
+      .filter(m => m.percentage > 0)
+      .sort((a, b) => b.percentage - a.percentage)
+      .map(m => m.name)
+      .slice(0, 2)
+      .join('/');
+    const generatedName = `${materialNames} ${subcategory}`;
+
     const product: ProductInput = {
-      product_name: productName,
+      product_name: generatedName,
       brand: brand || 'Unknown',
       category,
       subcategory,
@@ -146,21 +149,7 @@ export function ScoreForm({ onSubmit, isLoading }: ScoreFormProps) {
       <div className="bg-white rounded-lg border border-gray-200 p-6">
         <h3 className="text-lg font-semibold text-gray-900 mb-4">Product Details</h3>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              Product Name *
-            </label>
-            <input
-              type="text"
-              value={productName}
-              onChange={(e) => setProductName(e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent"
-              placeholder="e.g., Organic Cotton T-Shirt"
-              required
-            />
-          </div>
-
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
               Brand

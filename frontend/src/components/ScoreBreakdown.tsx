@@ -84,6 +84,29 @@ export function ScoreBreakdown({ breakdown, environmentalScore, certificationBon
     setOpenSections(newSections);
   };
 
+  // Calculate component averages for the formula display
+  const materialAvg = (
+    breakdown.material_impact.co2 +
+    breakdown.material_impact.water +
+    breakdown.material_impact.energy +
+    breakdown.material_impact.chemical
+  ) / 4;
+
+  const careAvg = (
+    breakdown.care_impact.co2 +
+    breakdown.care_impact.water +
+    breakdown.care_impact.energy
+  ) / 3;
+
+  const originAvg = (
+    breakdown.origin_impact.grid +
+    breakdown.origin_impact.transport +
+    breakdown.origin_impact.manufacturing
+  ) / 3;
+
+  const overallImpact = (materialAvg + careAvg + originAvg) / 3;
+  const finalScore = Math.min(100, environmentalScore + certificationBonus);
+
   return (
     <div className="bg-white rounded-lg border border-gray-200 overflow-hidden">
       {/* Summary */}
@@ -92,11 +115,65 @@ export function ScoreBreakdown({ breakdown, environmentalScore, certificationBon
           <span className="text-gray-600">Environmental Score</span>
           <span className="font-semibold text-gray-900">{environmentalScore.toFixed(1)}%</span>
         </div>
-        <div className="flex justify-between items-center">
+        <div className="flex justify-between items-center mb-2">
           <span className="text-gray-600">Certification Bonus</span>
           <span className="font-semibold text-gray-900">+{certificationBonus.toFixed(1)}%</span>
         </div>
+        <div className="flex justify-between items-center pt-2 border-t border-gray-200">
+          <span className="font-medium text-gray-900">Final Score</span>
+          <span className="font-bold text-gray-900">{finalScore.toFixed(0)}%</span>
+        </div>
       </div>
+
+      {/* How is this calculated? */}
+      <AccordionSection
+        title="How is this calculated?"
+        isOpen={openSections.has('formula')}
+        onToggle={() => toggleSection('formula')}
+      >
+        <div className="space-y-4 text-sm">
+          <div className="bg-gray-50 rounded-lg p-3 font-mono text-xs">
+            <p className="text-gray-500 mb-2">Formula:</p>
+            <p className="text-gray-900">Environmental Score = 100 - Average Impact</p>
+            <p className="text-gray-900">Final Score = Environmental + Certification Bonus</p>
+          </div>
+
+          <div>
+            <p className="font-medium text-gray-900 mb-2">Score Breakdown:</p>
+            <div className="space-y-1 text-gray-600">
+              <div className="flex justify-between">
+                <span>Material Impact (avg of 4 metrics)</span>
+                <span className="font-mono">{materialAvg.toFixed(1)}%</span>
+              </div>
+              <div className="flex justify-between">
+                <span>Care Impact (avg of 3 metrics)</span>
+                <span className="font-mono">{careAvg.toFixed(1)}%</span>
+              </div>
+              <div className="flex justify-between">
+                <span>Origin Impact (avg of 3 metrics)</span>
+                <span className="font-mono">{originAvg.toFixed(1)}%</span>
+              </div>
+              <div className="flex justify-between pt-1 border-t border-gray-200 text-gray-900">
+                <span>Overall Impact (avg)</span>
+                <span className="font-mono">{overallImpact.toFixed(1)}%</span>
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-gray-100 rounded-lg p-3">
+            <p className="text-gray-700">
+              <span className="font-medium">100</span> - <span className="font-mono">{overallImpact.toFixed(1)}</span> = <span className="font-medium">{(100 - overallImpact).toFixed(1)}</span> (Environmental)
+            </p>
+            <p className="text-gray-700">
+              <span className="font-mono">{(100 - overallImpact).toFixed(1)}</span> + <span className="font-mono">{certificationBonus.toFixed(1)}</span> = <span className="font-bold">{finalScore.toFixed(0)}</span> (Final)
+            </p>
+          </div>
+
+          <p className="text-gray-500 text-xs">
+            Impact scores are normalized against reference data (e.g., Hemp = lowest CO2, Cashmere = highest). Lower impact = higher sustainability score.
+          </p>
+        </div>
+      </AccordionSection>
 
       {/* Material Impact */}
       <AccordionSection
