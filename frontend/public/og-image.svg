@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#f0fdf4"/>
+      <stop offset="100%" style="stop-color:#dcfce7"/>
+    </linearGradient>
+    <linearGradient id="leafGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#22c55e"/>
+      <stop offset="100%" style="stop-color:#16a34a"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bgGrad)"/>
+
+  <!-- Decorative circles -->
+  <circle cx="100" cy="530" r="150" fill="#22c55e" opacity="0.1"/>
+  <circle cx="1100" cy="100" r="200" fill="#16a34a" opacity="0.1"/>
+
+  <!-- Leaf icon -->
+  <g transform="translate(500, 120) scale(2.5)">
+    <path d="M32 4C32 4 8 20 8 40C8 52 18 60 32 60C46 60 56 52 56 40C56 20 32 4 32 4Z" fill="url(#leafGrad)"/>
+    <path d="M32 16V52M32 36C26 36 20 32 18 26M32 44C38 44 44 40 46 34" stroke="white" stroke-width="2.5" stroke-linecap="round" fill="none" opacity="0.8"/>
+  </g>
+
+  <!-- Title -->
+  <text x="600" y="360" font-family="system-ui, -apple-system, sans-serif" font-size="56" font-weight="700" fill="#166534" text-anchor="middle">Fashion Sustainability</text>
+  <text x="600" y="430" font-family="system-ui, -apple-system, sans-serif" font-size="56" font-weight="700" fill="#166534" text-anchor="middle">Score Calculator</text>
+
+  <!-- Subtitle -->
+  <text x="600" y="500" font-family="system-ui, -apple-system, sans-serif" font-size="24" fill="#15803d" text-anchor="middle">Quantify environmental impact using lifecycle assessment data</text>
+
+  <!-- Score badge -->
+  <g transform="translate(1020, 480)">
+    <circle cx="0" cy="0" r="60" fill="#166534"/>
+    <text x="0" y="8" font-family="system-ui, sans-serif" font-size="32" font-weight="700" fill="white" text-anchor="middle">0-100</text>
+    <text x="0" y="35" font-family="system-ui, sans-serif" font-size="14" fill="#bbf7d0" text-anchor="middle">SCORE</text>
+  </g>
+</svg>
