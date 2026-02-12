@@ -23,14 +23,9 @@ def load_sample_products() -> pd.DataFrame:
     Load and score sample products from the dataset.
 
     Returns a DataFrame with scored products for the demo.
+    Always re-calculates scores to ensure normalization is current.
     """
-    # Try to load pre-scored data first
-    scored_path = DATA_DIR / "sustainability_scores.csv"
-    if scored_path.exists():
-        df = pd.read_csv(scored_path)
-        return df
-
-    # If not available, try the merged dataset
+    # Try the merged dataset first (has all reference data merged)
     merged_path = DATA_DIR / "Merged_product_dataset.csv"
     if merged_path.exists():
         df = pd.read_csv(merged_path)
@@ -47,6 +42,12 @@ def load_sample_products() -> pd.DataFrame:
         df = df.dropna(subset=["Material_CO2"])
         df_scored = calculate_sustainability_score(df)
         return df_scored
+
+    # Last resort: try pre-scored CSV (may have outdated normalization)
+    scored_path = DATA_DIR / "sustainability_scores.csv"
+    if scored_path.exists():
+        df = pd.read_csv(scored_path)
+        return df
 
     # Return empty DataFrame if no data found
     return pd.DataFrame()
