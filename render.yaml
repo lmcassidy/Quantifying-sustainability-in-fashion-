@@ -17,13 +17,3 @@ services:
       - key: CORS_ORIGINS
         sync: false
     healthCheckPath: /health
-
-staticSites:
-  # Frontend Static Site
-  - name: sustainability-frontend
-    rootDir: frontend
-    buildCommand: npm install && npm run build
-    publishDir: dist
-    envVars:
-      - key: VITE_API_URL
-        sync: false
