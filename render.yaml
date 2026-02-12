@@ -18,13 +18,12 @@ services:
         sync: false
     healthCheckPath: /health
 
+staticSites:
   # Frontend Static Site
-  - type: web
-    name: sustainability-frontend
-    runtime: static
+  - name: sustainability-frontend
     rootDir: frontend
     buildCommand: npm install && npm run build
-    staticPublishPath: dist
+    publishDir: dist
     envVars:
       - key: VITE_API_URL
         sync: false
